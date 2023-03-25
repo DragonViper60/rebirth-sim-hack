@@ -1,0 +1,57 @@
+getgenv().autoTap = true;
+getgenv().autoRebirth = false;
+getgenv().autoBuyPet = true;
+
+
+for i, v in pairs(_G) do
+    print(i, v);
+end
+
+
+local remotePathEvents = game:GetService("ReplicatedStorage"):WaitForChild("Events")
+local remotePathFunction = game:GetService("ReplicatedStorage"):WaitForChild("Functions")
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function doTap()
+    spawn(function ()
+        while autoTap == true do 
+            remotePathEvents:WaitForChild("Click3"):FireServer()
+            wait()
+        end
+    end)
+    end
+
+doTap()
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function autorebirth()
+spawn(function ()
+    while autoRebirth == true do
+        local args = {
+            [1] = 7
+        }
+        
+        remotePathEvents:WaitForChild("Rebirth"):FireServer(unpack(args))
+        
+        wait()
+    end
+end)
+end
+
+autorebirth()
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function autoBuypet()
+spawn(function ()
+    while wait() do
+        if not autoBuyPet then break end;
+        local args = {
+            [1] = "Forest",
+            [2] = "Single"
+        }
+        remotePathFunction:WaitForChild("Unbox"):InvokeServer(unpack(args))        
+        wait()
+    end;
+end)
+end
+
+autoBuypet()
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
